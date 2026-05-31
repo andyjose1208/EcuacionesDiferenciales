@@ -56,14 +56,16 @@ th{background:#e9eef5}
 </div>
 
 <div class="card">
+<h2>Trabajadores registrados</h2>
 <table id="tabla">
 <thead>
 <tr>
 <th>Nombre</th>
 <th>Horas</th>
+<th>Esfuerzo</th>
 <th>Descanso</th>
-<th>Fatiga %</th>
-<th>Rendimiento %</th>
+<th>Fatiga (%)</th>
+<th>Rendimiento (%)</th>
 <th>Recomendación</th>
 </tr>
 </thead>
@@ -72,12 +74,20 @@ th{background:#e9eef5}
 </div>
 
 <div class="card">
-<h3>Resumen</h3>
+<h2>Análisis semanal y mensual</h2>
 <p id="resumen"></p>
 </div>
 
 <div class="card">
+<h2>Gráfica de rendimiento</h2>
 <canvas id="grafica"></canvas>
+</div>
+
+<div class="card">
+<h2>Modelo matemático utilizado</h2>
+<p><b>Ecuación diferencial:</b> dR/dt = -kR</p>
+<p><b>Solución:</b> R(t)=R₀·e^(-kt)</p>
+<p>Donde R es el rendimiento, t el tiempo trabajado y k la constante de fatiga.</p>
 </div>
 
 </div>
@@ -132,6 +142,7 @@ function actualizar(){
    <tr>
    <td>${t.nombre}</td>
    <td>${t.horas}</td>
+   <td>${t.k}</td>
    <td>${t.descanso}</td>
    <td>${t.fatiga}</td>
    <td>${t.rendimiento}</td>
@@ -147,9 +158,9 @@ function actualizar(){
  }
 
  document.getElementById('resumen').innerHTML=
- `Fatiga semanal promedio: <b>${promFat.toFixed(2)}%</b><br>
- Rendimiento semanal promedio: <b>${promRen.toFixed(2)}%</b><br>
- Proyección mensual: <b>${(promFat*4).toFixed(2)}%</b>`;
+ `Fatiga promedio semanal estimada: <b>${promFat}%</b><br>
+ Rendimiento promedio semanal: <b>${promRen}%</b><br>
+ Proyección mensual (4 semanas): <b>${(promFat*4/1).toFixed(2)} puntos acumulados de fatiga</b>`;
 
  let labels=trabajadores.map(x=>x.nombre);
  let datos=trabajadores.map(x=>x.rendimiento);
