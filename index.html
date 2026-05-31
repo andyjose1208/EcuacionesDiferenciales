@@ -22,6 +22,57 @@ th{background:#e9eef5}
 @media(max-width:768px){
   table{display:block;overflow-x:auto}
 }
+
+.btn-doc{
+    display:inline-block;
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    padding:12px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:10px;
+    transition:0.3s;
+}
+
+.btn-doc:hover{
+    transform:translateY(-2px);
+}
+footer{
+    background:#1f4e79;
+    color:white;
+    margin-top:40px;
+    padding:40px 20px;
+}
+
+.footer-content{
+    max-width:1200px;
+    margin:auto;
+    text-align:center;
+}
+
+.footer-content h3{
+    margin-bottom:15px;
+}
+
+.footer-content h4{
+    margin-top:25px;
+    margin-bottom:15px;
+}
+
+.footer-content ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.footer-content li{
+    margin:6px 0;
+}
+
+.footer-content p{
+    margin-top:20px;
+}
 </style>
 </head>
 <body>
@@ -31,6 +82,24 @@ th{background:#e9eef5}
 </header>
 
 <div class="container">
+
+<div style="margin-top:15px;">
+    <a href="./Proyecto_Fatiga_Laboral.pdf"
+       target="_blank"
+       class="btn-doc">
+       📄 Consultar documentación del proyecto
+    </a>
+    <p style="margin-top:10px;">
+    Desarrollado por:
+    Yuleidis Gabriela Carrillo Varela,
+    Melissa Escorcia Jiménez,
+    Maria Alejandra Pacheco Vásquez,
+    Andy José Peña Diana,
+    Katherinne Riquett Doria,
+    Yuliana Rodríguez Figueroa y
+    Julieth Paola Rodríguez Robles.
+</p>
+</div>
 
 <div class="card">
 <h2>Registro</h2>
@@ -204,4 +273,34 @@ function importarJSON(event){
 }
 </script>
 </body>
+
+<footer>
+    <div class="footer-content">
+
+        <h3>Modelo Matemático de la Fatiga Laboral y su Influencia en la Productividad de Trabajadores del Sector Construcción mediante Ecuaciones Diferenciales</h3>
+
+        <p>
+            Proyecto académico desarrollado para la asignatura de
+            Ecuaciones Diferenciales.
+        </p>
+
+        <h4>Integrantes</h4>
+
+        <ul>
+            <li>Yuleidis Gabriela Carrillo Varela</li>
+            <li>Melissa Escorcia Jiménez</li>
+            <li>Maria Alejandra Pacheco Vásquez</li>
+            <li>Andy José Peña Diana</li>
+            <li>Katherinne Riquett Doria</li>
+            <li>Yuliana Rodríguez Figueroa</li>
+            <li>Julieth Paola Rodríguez Robles</li>
+        </ul>
+
+        <p>
+            Ingeniería Industrial e Ingeniería de Sistemas<br>
+            2026
+        </p>
+
+    </div>
+</footer>
 </html>
