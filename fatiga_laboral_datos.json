@@ -1,11 +1,65 @@
 [
   {
-    "nombre": "ANDY",
-    "horas": 45,
-    "descanso": 40,
+    "nombre": "Yuleidis Gabriela Carrillo Varela",
+    "horas": 8,
+    "descanso": 30,
+    "k": 0.03,
+    "rendimiento": "81.66",
+    "fatiga": "18.34",
+    "recomendacion": "Normal"
+  },
+  {
+    "nombre": "Melissa Escorcia Jiménez",
+    "horas": 10,
+    "descanso": 20,
     "k": 0.06,
-    "rendimiento": "10.72",
-    "fatiga": "89.28",
+    "rendimiento": "56.88",
+    "fatiga": "43.12",
     "recomendacion": "Aumentar pausas activas"
+  },
+  {
+    "nombre": "Maria Alejandra Pacheco Vásquez",
+    "horas": 9,
+    "descanso": 30,
+    "k": 0.06,
+    "rendimiento": "61.27",
+    "fatiga": "38.73",
+    "recomendacion": "Programar descansos"
+  },
+  {
+    "nombre": "Andy José Peña Diana",
+    "horas": 11,
+    "descanso": 15,
+    "k": 0.09,
+    "rendimiento": "38.61",
+    "fatiga": "61.39",
+    "recomendacion": "Aumentar pausas activas"
+  },
+  {
+    "nombre": "Katherinne Riquett Doria",
+    "horas": 8,
+    "descanso": 45,
+    "k": 0.03,
+    "rendimiento": "83.16",
+    "fatiga": "16.84",
+    "recomendacion": "Normal"
+  },
+  {
+    "nombre": "Yuliana Rodríguez Figueroa",
+    "horas": 10,
+    "descanso": 25,
+    "k": 0.06,
+    "rendimiento": "57.38",
+    "fatiga": "42.62",
+    "recomendacion": "Aumentar pausas activas"
+  },
+  {
+    "nombre": "Julieth Paola Rodríguez Robles",
+    "horas": 9,
+    "descanso": 40,
+    "k": 0.03,
+    "rendimiento": "76.34",
+    "fatiga": "23.66",
+    "recomendacion": "Normal"
   }
 ]
