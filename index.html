@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Fatiga Laboral</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f4f7fb;margin:0}
+header{background:#1f4e79;color:white;padding:20px;text-align:center}
+.container{max-width:1200px;margin:auto;padding:15px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+input,select,button{padding:10px;border-radius:6px;border:1px solid #ccc;flex:1}
+button{background:#1f4e79;color:white;cursor:pointer}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ddd;padding:8px;text-align:center}
+th{background:#e9eef5}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+@media(max-width:768px){
+  table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Modelo Matemático de Fatiga Laboral</h1>
+<p>Sector Construcción - Ecuaciones Diferenciales</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Registro</h2>
+<div class="row">
+<input id="nombre" placeholder="Nombre">
+<input id="horas" type="number" placeholder="Horas trabajadas">
+<select id="esfuerzo">
+<option value="0.03">Bajo</option>
+<option value="0.06">Medio</option>
+<option value="0.09">Alto</option>
+</select>
+<input id="descanso" type="number" placeholder="Minutos de descanso">
+<button onclick="agregar()">Agregar</button>
+</div>
+</div>
+
+<div class="card">
+<div class="actions">
+<button onclick="exportarJSON()">Exportar JSON</button>
+<button onclick="document.getElementById('archivo').click()">Importar JSON</button>
+<input type="file" id="archivo" accept=".json" style="display:none" onchange="importarJSON(event)">
+</div>
+</div>
+
+<div class="card">
+<table id="tabla">
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Horas</th>
+<th>Descanso</th>
+<th>Fatiga %</th>
+<th>Rendimiento %</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+<div class="card">
+<h3>Resumen</h3>
+<p id="resumen"></p>
+</div>
+
+<div class="card">
+<canvas id="grafica"></canvas>
+</div>
+
+</div>
+
+<script>
+let trabajadores=[];
+let chart;
+
+function agregar(){
+ let nombre=document.getElementById('nombre').value;
+ let horas=parseFloat(document.getElementById('horas').value);
+ let k=parseFloat(document.getElementById('esfuerzo').value);
+ let descanso=parseFloat(document.getElementById('descanso').value);
+
+ if(!nombre || isNaN(horas) || isNaN(descanso)){
+   alert('Complete todos los campos');
+   return;
+ }
+
+ let rendimiento=(100*Math.exp(-k*horas)+(descanso*0.1));
+ rendimiento=Math.min(100,rendimiento);
+
+ let fatiga=100-rendimiento;
+
+ let recomendacion='Normal';
+ if(fatiga>40) recomendacion='Aumentar pausas activas';
+ else if(fatiga>25) recomendacion='Programar descansos';
+
+ trabajadores.push({
+   nombre,horas,descanso,k,
+   rendimiento:rendimiento.toFixed(2),
+   fatiga:fatiga.toFixed(2),
+   recomendacion
+ });
+
+ actualizar();
+
+ // Limpiar formulario
+ document.getElementById('nombre').value='';
+ document.getElementById('horas').value='';
+ document.getElementById('descanso').value='';
+ document.getElementById('esfuerzo').selectedIndex=0;
+ document.getElementById('nombre').focus();
+}
+
+function actualizar(){
+ const tbody=document.querySelector('#tabla tbody');
+ tbody.innerHTML='';
+
+ trabajadores.forEach(t=>{
+   tbody.innerHTML+=`
+   <tr>
+   <td>${t.nombre}</td>
+   <td>${t.horas}</td>
+   <td>${t.descanso}</td>
+   <td>${t.fatiga}</td>
+   <td>${t.rendimiento}</td>
+   <td>${t.recomendacion}</td>
+   </tr>`;
+ });
+
+ let promFat=0,promRen=0;
+
+ if(trabajadores.length){
+   promFat=trabajadores.reduce((a,b)=>a+parseFloat(b.fatiga),0)/trabajadores.length;
+   promRen=trabajadores.reduce((a,b)=>a+parseFloat(b.rendimiento),0)/trabajadores.length;
+ }
+
+ document.getElementById('resumen').innerHTML=
+ `Fatiga semanal promedio: <b>${promFat.toFixed(2)}%</b><br>
+ Rendimiento semanal promedio: <b>${promRen.toFixed(2)}%</b><br>
+ Proyección mensual: <b>${(promFat*4).toFixed(2)}%</b>`;
+
+ let labels=trabajadores.map(x=>x.nombre);
+ let datos=trabajadores.map(x=>x.rendimiento);
+
+ if(chart) chart.destroy();
+
+ chart=new Chart(document.getElementById('grafica'),{
+   type:'bar',
+   data:{
+     labels:labels,
+     datasets:[{
+       label:'Rendimiento (%)',
+       data:datos
+     }]
+   }
+ });
+}
+
+function exportarJSON(){
+ const blob=new Blob(
+   [JSON.stringify(trabajadores,null,2)],
+   {type:'application/json'}
+ );
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob);
+ a.download='fatiga_laboral_datos.json';
+ a.click();
+}
+
+function importarJSON(event){
+ const file=event.target.files[0];
+ if(!file) return;
+
+ const reader=new FileReader();
+ reader.onload=function(e){
+   trabajadores=JSON.parse(e.target.result);
+   actualizar();
+   alert('Datos importados correctamente');
+ }
+ reader.readAsText(file);
+}
+</script>
+</body>
+</html>

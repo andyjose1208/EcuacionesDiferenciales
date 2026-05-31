@@ -1,0 +1,11 @@
+[
+  {
+    "nombre": "ANDY",
+    "horas": 45,
+    "descanso": 40,
+    "k": 0.06,
+    "rendimiento": "10.72",
+    "fatiga": "89.28",
+    "recomendacion": "Aumentar pausas activas"
+  }
+]
